@@ -8,7 +8,7 @@
 // =============================================================================
 
 // Current Operations
-// Left-Mouse button on display window to get current pixel value
+// Left-Mouse button on display window to get current pixel values
 // Mid-Mouse button to save image
 // Right-Mouse button to close window
 // Press R to re-render the image
