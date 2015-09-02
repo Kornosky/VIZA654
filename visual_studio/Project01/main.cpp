@@ -7,9 +7,10 @@
 // Copyright (c) 2014 Shenyao Ke. All rights reserved.
 // =============================================================================
 
-// Current Operation
+// Current Operations
+// Left-Mouse button on display window to get current pixel value
 // Mid-Mouse button to save image
-// Right-Mouse Button to close window
+// Right-Mouse button to close window
 // Press R to re-render the image
 #include <cstdlib>
 #include <iostream>
