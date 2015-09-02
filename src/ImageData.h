@@ -15,7 +15,6 @@
 //#include <math.h>
 
 #include "MemoryControl.h"
-//#include "Math/CGVector.h"
 #include "ColorData.h"
 
 //read image files
@@ -32,11 +31,10 @@ protected:
 	ColorRGBA **pixels;
 public:
 	ImageData();
-	//ImageData(ppmImage &ppmData);
 	ImageData(int wd = default_resX, int ht = default_resY);
 	ImageData(int wd, int ht, double* &pixMap);//pixMap stores rgb data
 	ImageData(int wd, int ht, unsigned char* &pixMap);//pixMap stores rgb data
-	ImageData(const string &filename);
+	ImageData(const string& filename);
 	ImageData(const ImageData& src);
 	virtual~ImageData();
     
@@ -47,17 +45,7 @@ public:
 	const ColorRGBA& getRGBA(int idx) const;
 	void setRGBA(int x, int y, const ColorRGBA& color);
 	void getPixels(unsigned char* &pixMap) const;
-	int** genHist() const;//Generate histogram
-	double** getLuma() const;// Generate Luma
-	
-	void printRGBA(int x, int y) const;
-	void resize(int x, int y);
-	//const ColorRGBA& bilinearPixel(double x, double y) const;
-	//const ColorRGBA& bicubicPixel(double x, double y) const;
-	bool writeFile(const string &filename) const;
-	//ColorRGB bicubicPixel(double x, double y);
-	//void convert2PPM(ppmImage &ppmData);
 
-	//friend const ImageData& downsampling(const ImageData& src);
+	bool writeFile(const string &filename) const;
 };
 #endif /* defined(__ImageData__) */

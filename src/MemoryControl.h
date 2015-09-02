@@ -10,7 +10,7 @@ void Aligned_2DArray(T** &twod_array, int wdt = 3, int hgt = 3,
 {
 	// To access data in 2D array, use A[y][x]
 	// To access data in 1D array, use A[0][i]
-	// Row Matrix
+	// Row Major Matrix
 	T *a = new T[wdt * hgt];
 	twod_array = new T *[hgt];
 

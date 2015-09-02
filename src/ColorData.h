@@ -88,14 +88,10 @@ public:
 
 	virtual void setRGB(double red, double green, double blue){ r = red; g = green; b = blue; };
 	virtual void setWebColor(unsigned char red, unsigned char green, unsigned char blue){ r = red / 255.0; g = green / 255.0; b = blue / 255.0; };
-	//virtual void setRGB(unsigned short red, unsigned short green, unsigned short blue){ r = red / 255.0; g = green / 255.0; b = blue / 255.0; };
 	virtual double getLuma(){ return 0.2126 * r + 0.7152 * g + 0.0722 * b; }
 	virtual void printInfo() const{ std::cout << "Color data\n\tRed:\t" << this->r << "\n\tGreen:\t" << this->g << "\n\tBlue:\t" << this->b << std::endl; }
     
 	const ColorHSV& conv2hsv() const;
-    //inline ColorRGB hsv2rgb();
-    //inline void setHSV(double hue, double saturation, double value);
-    //inline void updateLuma();
 	void clamp();
 	ColorRGB returnClamp();
 
@@ -133,10 +129,7 @@ public:
 
 	ColorRGBA multiplyRGB(double n) const{ return ColorRGBA(r * n, g * n, b * n, a); }
 
-	//void setRGBA(double red, double green, double blue){ setRGB(red, green, blue); };
 	void setRGBA(double red, double green, double blue, double alpha){ setRGB(red, green, blue); a = alpha; };
-	//void setRGBA(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha){ setRGB(red, green, blue); a = alpha / 255.0; };
-	//void setRGBA(unsigned short red, unsigned short green, unsigned short blue, unsigned short alpha){ setRGB(red, green, blue); a = alpha / 255.0; };
 	void printInfo() const{ std::cout << "Color data\n\tRed:\t" << this->r << "\n\tGreen:\t" << this->g << "\n\tBlue:\t" << this->b << "\n\tAlpha:\t" << this->a << std::endl; };
 
 	const ColorHSVA& conv2hsva() const;
@@ -146,9 +139,9 @@ public:
 };
 inline ColorRGBA compAdd(const ColorRGBA& color1, const ColorRGBA& color2)
 {
-	ColorRGBA tmp = color1 * color1.a + color2 * (1 - color1.a);
+	ColorRGBA ret = color1 * color1.a + color2 * (1 - color1.a);
 	//
-	return tmp;
+	return ret;
 }
 // HSV color space
 class ColorHSV
@@ -217,8 +210,6 @@ inline const ColorRGB& ColorHSV::conv2rgb() const
 		b = (min + x);
 	}
 	return ColorRGB(r, g, b);
-	//cout << "New RGB:" << r << ", " << g << ", " << b << ", " << std::endl;
-	//cout << "HSV:" << h << ", " << s << ", " << v << ", " << std::endl;
 }
 
 inline void ColorHSV::clamp()
@@ -261,14 +252,9 @@ inline ColorRGBA ColorRGBA::returnClamp()
 	double retB = b > 1 ? 1 : (b < 0 ? 0 : b);
 	double retA = a > 1 ? 1 : (a < 0 ? 0 : a);
 	ColorRGBA ret(retR, retG, retB, retA);
-	return ret;// ColorRGBA(retR, retG, retB, retA);
+	return ret;
 }
 
-/*
-const ColorHSVA& ColorRGBA::conv2hsva() const
-{
-	return;
-}*/
 
 //Convert RGB color data to HSV
 inline const ColorHSV& ColorRGB::conv2hsv() const
@@ -308,8 +294,6 @@ inline const ColorHSV& ColorRGB::conv2hsv() const
 		h = (h >= 0) ? h : (h + 360.0); //
 	}
 	return ColorHSV(h, s, v);
-//cout << "RGB:" << r << ", " << g << ", " << b << ", " << std::endl;
-//cout << "HSV:" << h << ", " << s << ", " << v << ", " << std::endl;
 }
 
 inline ostream& operator<<(ostream &os, const ColorRGB &color)

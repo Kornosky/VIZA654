@@ -5,7 +5,7 @@ ImageData::ImageData()
 	width = default_resX;
 	height = default_resY;
 
-	Aligned_2DArray(pixels, width, height);//pixels = new ColorRGBA[width * height];
+	Aligned_2DArray(pixels, width, height);
 }
 ImageData::ImageData(int wd, int ht)
 {
@@ -43,7 +43,7 @@ ImageData::ImageData(int wd, int ht, unsigned char* &pixMap)
 			static_cast<double>(pixMap[i * 3 + 2]) / 255.0);
 	}
 }
-ImageData::ImageData(const string &filename)
+ImageData::ImageData(const string& filename)
 {
 	// Define image file format
 	FREE_IMAGE_FORMAT fif = FIF_UNKNOWN;
@@ -89,7 +89,6 @@ ImageData::ImageData(const string &filename)
 	{
 		cout << "ERROR: Image file contains no available image data!" << endl;
 		abort();
-		//return false;
 	}
 	else
 	{
@@ -117,7 +116,6 @@ ImageData::ImageData(const string &filename)
 				{
 					int idx = (i + width * j) * 3;
 
-					//cout << idx << ":" << pixels[idx] + 0 << endl;
 					this->setRGBA(i, j, ColorRGBA(pixels[idx + 2] / 255.0,
 						pixels[idx + 1] / 255.0,
 						pixels[idx] / 255.0));
@@ -244,10 +242,6 @@ ImageData::ImageData(const ImageData& src)
 
 	Aligned_2DArray(pixels, width, height);
 
-	/*for (int i = 0; i < width * height; i++)
-	{
-		pixels[0][i] = src.getRGBA(i);
-	}*/
 	memcpy(pixels[0], src.pixels[0], width * height);
 }
 
@@ -283,19 +277,6 @@ void ImageData::getPixels(unsigned char* &pixMap) const
 		pixMap[index] = pixels[0][i].b * 255;
 	}
 }
-void ImageData::printRGBA(int x, int y) const
-{
-	cout << pixels[y][x] << endl;
-}
-void ImageData::resize(int x, int y)
-{
-	delete pixels;
-	width = x;
-	height = y;
-
-	Aligned_2DArray(pixels, width, height);
-	//pixels = new ColorRGBA[width * height];
-}
 
 bool ImageData::writeFile(const string &filename) const
 {
@@ -328,39 +309,4 @@ bool ImageData::writeFile(const string &filename) const
 		cout << "Image successfully saved!" << endl;
 		return true;
 	}
-}
-
-int** ImageData::genHist() const
-{
-	int* histRGB[4];
-	int bitlen = 1 << bpp;
-	for (int i = 0; i < 4; i++)
-	{
-		histRGB[i] = new int[bitlen];
-	}
-	/*for (int j = 0; j < height; j++) {
-		for (int i = 0; i < width; i++) {
-			histRGB[0][static_cast<int>(pixels[j][i]->r)]++;
-			histRGB[1][static_cast<int>(pixels[j][i]->r)]++;
-			histRGB[2][static_cast<int>(pixels[j][i]->r)]++;
-			histRGB[3][static_cast<int>(pixels[j][i]->r)]++;
-		}
-	}*/
-	return histRGB;
-}
-
-double** ImageData::getLuma() const
-{
-	double** ret;
-	Aligned_2DArray(ret, this->getWidth(), this->getHeight());
-	for (int j = 0; j < height; j++)
-	{
-		for (int i = 0; i < width; i++)
-		{
-			ColorRGBA curColor = this->getRGBA(i, j);
-			ret[j][i] = curColor.r * 0.2126 + curColor.g * 0.7152 + curColor.b * 0.0722;
-		}
-	}
-
-	return ret;
 }

@@ -22,11 +22,11 @@ using namespace std;
 // =============================================================================
 // These variables will store the input ppm image's width, height, and color
 // =============================================================================
-//Define the initial window size
-const int width(1280), height(720);
-//Actual pixel data array
+// Define the initial window size
+static int width(1280), height(720);
+// Actual pixel data array
 unsigned char *pixmap;
-//GLFW display window and window name on the menu bar
+// GLFW display window and window name on the menu bar
 GLFWwindow* window = nullptr;
 const char* win_name = "VIZA654";
 // Output image file name
@@ -39,21 +39,32 @@ static void initPara()
 	pixmap = new unsigned char[width * height * 3];
 }
 // =============================================================================
-// setPixels()
+// Image operation function
 // =============================================================================
 void setPixels()
 {
-	for (int i = 0; i < width; i++)
+	// Example to read image, modify and display it
+	// Initialize a image instance by reading an image file
+	// Check the class file to find more construction methods
+	ImageData img("viz.jpg");
+	// Change the global variable to make display window fit the image size
+	width = img.getWidth();
+	height = img.getHeight();
+	// Traversal pixels in the image
+	for (int j = 0; j < height; j+=10)
 	{
-		for (int j = 0; j < height; j++)
+		for (int i = 0; i < width; i+=10)
 		{
-			// for each pixel, do something
-			// eg. pixmap[i * j * 3] = 1;
+			// Get image color at position i, j
+			ColorRGBA cur_color = img.getRGBA(i, j);
+			// Change the pixel color at i, j
+			// For example, make the color half of the original value
+			img.setRGBA(i, j, cur_color * 0.5);
 		}
 	}
+	// Read color values into pixmap array
+	img.getPixels(pixmap);
 }
-
-
 
 // =============================================================================
 // OpenGL Display and Mouse Processing Functions.
@@ -79,11 +90,11 @@ static void windowDisplay(void)
 ///*
 static void processCursor(GLFWwindow* window, double x, double y)
 {
-	//case GLFW_MOUSE_BUTTON_LEFT:
-	//if (action == GLFW_PRESS)
-	cout << "Color at " << x << ", " << height - y << " is " << (int)pixmap[3 * ((int)x + width * (height - (int)y))] << endl;
-
-	//break;
+	int cx = static_cast<int>(x);
+	int cy = height - static_cast<int>(y);
+	int idx = 3 * (cx + width * cy);
+	cout << "Color at " << cx << ", " << cy << " is " <<
+		(int)pixmap[idx] << " " << (int)pixmap[idx + 1] << " " << (int)pixmap[idx + 2] << endl;
 }
 static void processMouse(GLFWwindow *window, int button, int action, int mods)
 {
@@ -91,11 +102,6 @@ static void processMouse(GLFWwindow *window, int button, int action, int mods)
 	case GLFW_MOUSE_BUTTON_LEFT:
 		if (action == GLFW_PRESS)
 			glfwSetCursorPosCallback(window, processCursor);
-		if (action == GLFW_RELEASE)
-		{
-			//glfwSetCursorPosCallback(window, NULL);
-		}
-		//cout << x << ", " << y << endl;
 		break;
 	case GLFW_MOUSE_BUTTON_MIDDLE:
 		if (action == GLFW_PRESS)
@@ -115,8 +121,6 @@ static void processKeyboard(GLFWwindow* window, int key, int scancode, int actio
 	if (key == GLFW_KEY_R && action == GLFW_PRESS)
 	{
 		setPixels();
-		//renderWindow = glfwCreateWindow(width, height, "Render View", NULL, NULL);
-		//windowDisplay();
 	}
 	if (key == GLFW_KEY_Q && action == GLFW_PRESS)
 		exit(0);
