@@ -3,6 +3,7 @@ Template for VIZA654
 
 # Requirements
 * Windows XP/7/8/10
+* Mac version under construction
 * Visual Studio 2013
 * FreeImage Library
 
