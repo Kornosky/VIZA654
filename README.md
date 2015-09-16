@@ -8,7 +8,7 @@ Template for VIZA654
 * FreeImage Library
 
 #3rd Party Libraries
-* [FreeImage](http://freeimage.sourceforge.net/) library has only windows build.
+* [FreeImage](http://freeimage.sourceforge.net/) library has only windows build. We are trying to build a mac version.
 * Mac or Linux users can use libPNG or libJPEG instead which is not included in this template.
 * All required dll and lib files have been included in this project.
 
