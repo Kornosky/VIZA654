@@ -31,7 +31,7 @@ private:
 public:
      VisibleObject();
      ~VisibleObject();
-
+     glm::vec3  color;
     // inline virtual void setMaterial(Material& material) { m = &material; }
 
     // The function will return a glm::vec3 with x : Parameter t, y : slope of hit, z : yet to be decided (-1)
@@ -46,7 +46,7 @@ public:
 
     // For traingular meshes
      virtual glm::vec3 getNormalAtPoint(glm::vec3& point, int id_triangle) const { return glm::vec3(0.0f, 0.0f, 0.0f); };
-     virtual glm::vec3 getColor(glm::vec3& point, int id_triangle) const { return glm::vec3(0.0f, 0.0f, 0.0f); };
+     virtual glm::vec3 getColor(glm::vec3& point, int id_triangle) const;
 
      virtual void update(float t);
 
@@ -60,7 +60,11 @@ protected:
 
  glm::vec3 VisibleObject::getNormalAtPoint(glm::vec3& point) const { return glm::vec3(0.0f, 0.0f, 0.0f); }
 
- glm::vec3 VisibleObject::getColor(glm::vec3& point) const { return glm::vec3(0.0f, 0.0f, 0.0f); }
+ inline glm::vec3 VisibleObject::getColor(glm::vec3& point, int id_triangle) const
+ {
+     return glm::vec3();
+ }
+ glm::vec3 VisibleObject::getColor(glm::vec3& point) const { return color; }
 
  void VisibleObject::update(float t) {
 }

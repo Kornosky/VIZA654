@@ -13,7 +13,7 @@ private:
     glm::vec3 p_c;
     //Movement
     glm::vec3 Front = glm::vec3(0, 1, 0);
-    glm::vec3 Right = glm::vec3(0, 0, 1);
+    glm::vec3 Right = glm::vec3(1, 0, 0);
 public:
 	Sphere();
     Sphere(glm::vec3& center, float radius);
@@ -56,7 +56,7 @@ bool solveQuadratic(const float& a, const float& b, const float& c, float& x0, f
 //Checks to see if it blocks the ray
 glm::vec3 Sphere::getIntersectInfo(const Ray& incoming) const
 {
-    //glm::vec3 intersection(0.0f, 0.0f, 0.0f);
+    glm::vec3 intersection(0.0f, 0.0f, 0.0f);
 
     //float a = 1.0f;
 
@@ -90,33 +90,51 @@ glm::vec3 Sphere::getIntersectInfo(const Ray& incoming) const
 
     //return intersection;
     //https://www.scratchapixel.com/code.php?id=10&origin=/lessons/3d-basic-rendering/minimal-ray-tracer-rendering-simple-shapes
-    float t0, t1; // solutions for t if the ray intersects 
-    glm::vec3 intersection(0.0f, 0.0f, 0.0f);
+    //float t0, t1; // solutions for t if the ray intersects 
+    //glm::vec3 intersection(0.0f, 0.0f, 0.0f);
 
-        // analytic solution
-    glm::vec3 L = incoming.GetStartingPoint() - p_c;
+    //// analytic solution
+    //glm::vec3 L = incoming.GetStartingPoint() - p_c;
+    //float a = glm::dot(incoming.GetDirection(), incoming.GetDirection());
+    //float b = 2 * glm::dot(incoming.GetDirection(), L);
+    //float c = glm::dot(L, L) - (r * r);
+    //if (!solveQuadratic(a, b, c, t0, t1)) return intersection;
+
+    //if (t0 > t1) std::swap(t0, t1);
+
+    //if (t0 < 0) {
+    //    t0 = t1; // if t0 is negative, let's use t1 instead 
+    //    if (t0 < 0) return intersection; // both t0 and t1 are negative 
+    //}
+
+    //intersection[0] = t0;
+    ////  intersection[1] = ifInside;
+    //intersection[2] = 1; //ifIntersect
+
+    //return intersection;
+    //
+    //http://viclw17.github.io/2018/07/17/raytracing-camera-and-msaa/
+    glm::vec3 oc = incoming.GetStartingPoint() - p_c;
     float a = glm::dot(incoming.GetDirection(), incoming.GetDirection());
-    float b = 2 * glm::dot(incoming.GetDirection(), L);
-    float c = glm::dot(L,L) - (r*r);
-    if (!solveQuadratic(a, b, c, t0, t1)) return intersection;
-
-    if (t0 > t1) std::swap(t0, t1);
-
-    if (t0 < 0) {
-        t0 = t1; // if t0 is negative, let's use t1 instead 
-        if (t0 < 0) return intersection; // both t0 and t1 are negative 
+    float b = 2.0 * glm::dot(oc, incoming.GetDirection());
+    float c = dot(oc, oc) - r * r;
+    float discriminant = b * b - 4 * a * c;
+    int cat = 0;
+    if (discriminant < 0) {
+        cat= -1.0;
     }
-
-    intersection[0] = t0;
-  //  intersection[1] = ifInside;
-    intersection[2] = 1; //ifIntersect
-
-     return intersection;
+    else {
+        cat = (-b - sqrt(discriminant)) / (2.0 * a);
+    }
+    intersection[0] = cat;
+    intersection[1] = 0;
+    intersection[2] = cat;
+    return intersection;
 }
 
 inline void Sphere::MoveSphere(Camera_Movement direction, float deltaTime)
 {
-    float velocity = 100 * deltaTime;
+    float velocity = 1 * deltaTime;
     if (direction == FORWARD)
         p_c += Front * velocity;
     if (direction == BACKWARD)

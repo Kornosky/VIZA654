@@ -13,7 +13,9 @@ enum Camera_Movement {
     FORWARD,
     BACKWARD,
     LEFT,
-    RIGHT
+    RIGHT,
+    UP,
+    DOWN
 };
 
 
@@ -42,20 +44,23 @@ private:
 public:
     // camera Attributes
     glm::vec3 Position;
-    glm::vec3 Front = glm::vec3(1, 0, 0);
-    glm::vec3 Up;
-    glm::vec3 Right = glm::vec3(0, 0, 1);
+    glm::vec3 Front = glm::vec3(0, 0, 1);
+    glm::vec3 Up = glm::vec3(0, 1, 0);
+    glm::vec3 Right = glm::vec3(-1, 0, 0);
     glm::vec3 WorldUp;
     // euler Angles
     float Yaw;
     float Pitch;
     // camera options
-    float MovementSpeed = .1f;
+    float MovementSpeed = 1.0f;
     float MouseSensitivity;
     float Zoom;
-
+    glm::vec3 lower_left_corner;
+    glm::vec3 horizontal;
+    glm::vec3 vertical;
+    glm::vec3 origin;
     Camera(const glm::vec3& position, const glm::vec3& direction, const glm::vec3& up, float sx, float sy, float screen_distance);
-    inline Ray GetRay(float u, float v) const;
+    inline Ray GetRay(float u, float v, float width, float height) const;
 
     // returns the view matrix calculated using Euler Angles and the LookAt Matrix
     glm::mat4 GetViewMatrix()
@@ -68,13 +73,17 @@ public:
     {
         float velocity = MovementSpeed * deltaTime;
         if (direction == FORWARD)
-            p_e += Front * velocity;
+            origin += Front * velocity;
         if (direction == BACKWARD)
-            p_e -= Front * velocity;
+            origin -= Front * velocity;
         if (direction == LEFT)
-            p_e -= Right * velocity;
+            origin -= Right * velocity;
         if (direction == RIGHT)
-            p_e += Right * velocity;
+            origin += Right * velocity;
+        if (direction == UP)
+            origin += Up * velocity;
+        if (direction == DOWN)
+            origin -= Up * velocity;
     }
 
     // processes input received from a mouse input system. Expects the offset value in both the x and y direction.
@@ -133,28 +142,16 @@ private:
 
 
 Camera::Camera(const glm::vec3& position, const glm::vec3& direction, const glm::vec3& up, float sx, float sy, float screen_distance) : p_e(position), v_view(direction), v_up(up), s_x(sx), s_y(sy), d(screen_distance) {
-    n_0 = cross(v_view, v_up);
-    n_0 = glm::normalize(n_0);
-
-    n_1 = cross(n_0, v_view);
-    n_1 = glm::normalize(n_1);
-
-    //n2 = vview/|vview|
-    n_2 = glm::normalize(v_view);
-
-    //CENTER OF VIEWPORT
-    //pc = pe + d n2 
-    p_c = p_e + n_2 * d; // Going to the center of the screen from the camera position in the direction of the view vector
-
-    //p00 = pc – (s0 n0 + s1 n1)/2
-    p_00 = p_c - ((s_x ) * n_0 + (s_y ) * n_1)*.5f; 
+    lower_left_corner = glm::vec3(-2.0, -1.0, -1.0);
+    horizontal = glm::vec3(4.0, 0.0, 0.0); // horizontal range
+    vertical = glm::vec3(0.0, 2.0, 0.0);   // vertical range
+    origin = glm::vec3(0.0, 0.0, 0.0);
 }
 
 
 
-Ray Camera::GetRay(float u, float v) const {
-    glm::vec3 starting_point = p_e + glm::vec3(0, v, u);
-    return Ray(starting_point, (p_00 + (u * n_0 * s_x) + (v * n_1 * s_y)) - p_e);
+Ray Camera::GetRay(float u, float v, float width, float height) const {
+    return Ray(origin, lower_left_corner + u/width * horizontal + v/height * vertical - origin);
 }
 
 

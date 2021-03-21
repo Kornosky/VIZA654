@@ -128,7 +128,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\ImageData.cpp" />
+    <ClCompile Include="Light.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PointLight.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\Camera.h" />
@@ -140,6 +142,8 @@
     <ClInclude Include="..\..\src\ColorData.h" />
     <ClInclude Include="..\..\src\ImageData.h" />
     <ClInclude Include="..\..\src\MemoryControl.h" />
+    <ClInclude Include="Light.h" />
+    <ClInclude Include="PointLight.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
