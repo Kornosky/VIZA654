@@ -1,4 +1,3 @@
-#pragma once
 
 
 #ifndef CAMERA_H
@@ -52,13 +51,14 @@ public:
     float Yaw;
     float Pitch;
     // camera options
-    float MovementSpeed = 1.0f;
+    float MovementSpeed = .2f;
     float MouseSensitivity;
     float Zoom;
     glm::vec3 lower_left_corner;
     glm::vec3 horizontal;
     glm::vec3 vertical;
     glm::vec3 origin;
+    glm::vec3 displacement;
     Camera(const glm::vec3& position, const glm::vec3& direction, const glm::vec3& up, float sx, float sy, float screen_distance);
     inline Ray GetRay(float u, float v, float width, float height) const;
 
@@ -84,6 +84,8 @@ public:
             origin += Up * velocity;
         if (direction == DOWN)
             origin -= Up * velocity;
+
+        cout << "Camera Position: " << origin.x << ", " << origin.y << ", " << origin.z;
     }
 
     // processes input received from a mouse input system. Expects the offset value in both the x and y direction.
@@ -141,18 +143,38 @@ private:
 };
 
 
+//Camera::Camera(const glm::vec3& position, const glm::vec3& direction, const glm::vec3& up, float sx, float sy, float screen_distance) : p_e(position), v_view(direction), v_up(up), s_x(sx), s_y(sy), d(screen_distance) {
+//    n_0 = normalize(cross(-v_view, v_up));
+//    n_1 = normalize(cross(n_0, v_view));
+//    n_2 = normalize(v_view);
+//
+//    p_c = p_e + n_2 * d; // Going to the center of the screen from the camera position in the direction of the view vector
+//    p_00 = p_c - (1 / 2.0f) * n_0 - (1 / 2.0f) * n_1; // The 0,0 for the screen : Bottom Left 
+//}
+
+
+//
+//Ray Camera::GetRay(float u, float v, float width, float height) {
+//
+//    p_00 = p_c - (s_x / 2.0f) * n_0 - (s_y / 2.0f) * n_1; // The 0,0 for the screen : Bottom Left corner
+//    return Ray(p_e , (p_00  + (u/width * n_0 * s_x) + (v/height * n_1 * s_y)) - p_e);
+//}
+
+//
 Camera::Camera(const glm::vec3& position, const glm::vec3& direction, const glm::vec3& up, float sx, float sy, float screen_distance) : p_e(position), v_view(direction), v_up(up), s_x(sx), s_y(sy), d(screen_distance) {
     lower_left_corner = glm::vec3(-2.0, -1.0, -1.0);
+    
     horizontal = glm::vec3(4.0, 0.0, 0.0); // horizontal range
     vertical = glm::vec3(0.0, 2.0, 0.0);   // vertical range
-    origin = glm::vec3(0.0, 0.0, 0.0);
+    origin = position;
 }
 
 
 
 Ray Camera::GetRay(float u, float v, float width, float height) const {
-    return Ray(origin, lower_left_corner + u/width * horizontal + v/height * vertical - origin);
+    return Ray(origin, origin + lower_left_corner + u / width * horizontal + v / height * vertical);
 }
+
 
 
 #endif

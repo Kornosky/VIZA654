@@ -1,26 +1,19 @@
 ﻿  main.cpp
-E:\ImageProcessing\ProjectFiles\ImageSynthesisRayCaster\VIZA654\include\Sphere.h(43,28): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-E:\ImageProcessing\ProjectFiles\ImageSynthesisRayCaster\VIZA654\include\Sphere.h(46,17): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-E:\ImageProcessing\ProjectFiles\ImageSynthesisRayCaster\VIZA654\include\Sphere.h(119,13): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-E:\ImageProcessing\ProjectFiles\ImageSynthesisRayCaster\VIZA654\include\Sphere.h(124,15): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-E:\ImageProcessing\ProjectFiles\ImageSynthesisRayCaster\VIZA654\include\Sphere.h(127,41): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-E:\ImageProcessing\ProjectFiles\ImageSynthesisRayCaster\VIZA654\include\Sphere.h(129,23): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+E:\ImageProcessing\ProjectFiles\ImageSynthesisRayCaster\VIZA654\include\Sphere.h(124,17): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+E:\ImageProcessing\ProjectFiles\ImageSynthesisRayCaster\VIZA654\include\ColorHelpers.h(16,25): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+E:\ImageProcessing\ProjectFiles\ImageSynthesisRayCaster\VIZA654\include\ColorHelpers.h(74,23): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+E:\ImageProcessing\ProjectFiles\ImageSynthesisRayCaster\VIZA654\include\ColorHelpers.h(75,18): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+E:\ImageProcessing\ProjectFiles\ImageSynthesisRayCaster\VIZA654\include\ColorHelpers.h(127,40): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-E:\ImageProcessing\ProjectFiles\ImageSynthesisRayCaster\VIZA654\include\Sphere.h(131,23): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-E:\ImageProcessing\ProjectFiles\ImageSynthesisRayCaster\VIZA654\visual_studio\Project01\main.cpp(141,12): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-E:\ImageProcessing\ProjectFiles\ImageSynthesisRayCaster\VIZA654\visual_studio\Project01\main.cpp(112,35): warning C4101: 'normal': unreferenced local variable
-E:\ImageProcessing\ProjectFiles\ImageSynthesisRayCaster\VIZA654\visual_studio\Project01\main.cpp(112,43): warning C4101: 'refl_dir': unreferenced local variable
-E:\ImageProcessing\ProjectFiles\ImageSynthesisRayCaster\VIZA654\visual_studio\Project01\main.cpp(112,53): warning C4101: 'refr_dir': unreferenced local variable
-E:\ImageProcessing\ProjectFiles\ImageSynthesisRayCaster\VIZA654\visual_studio\Project01\main.cpp(112,63): warning C4101: 'ray_dir': unreferenced local variable
-E:\ImageProcessing\ProjectFiles\ImageSynthesisRayCaster\VIZA654\visual_studio\Project01\main.cpp(165,60): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\ImageProcessing\ProjectFiles\ImageSynthesisRayCaster\VIZA654\visual_studio\Project01\main.cpp(165,56): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\ImageProcessing\ProjectFiles\ImageSynthesisRayCaster\VIZA654\visual_studio\Project01\main.cpp(272,22): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-E:\ImageProcessing\ProjectFiles\ImageSynthesisRayCaster\VIZA654\visual_studio\Project01\main.cpp(293,18): warning C4154: deletion of an array expression; conversion to pointer supplied
+E:\ImageProcessing\ProjectFiles\ImageSynthesisRayCaster\VIZA654\visual_studio\Project01\main.cpp(255,35): warning C4101: 'normal': unreferenced local variable
+E:\ImageProcessing\ProjectFiles\ImageSynthesisRayCaster\VIZA654\visual_studio\Project01\main.cpp(255,43): warning C4101: 'refl_dir': unreferenced local variable
+E:\ImageProcessing\ProjectFiles\ImageSynthesisRayCaster\VIZA654\visual_studio\Project01\main.cpp(255,53): warning C4101: 'refr_dir': unreferenced local variable
+E:\ImageProcessing\ProjectFiles\ImageSynthesisRayCaster\VIZA654\visual_studio\Project01\main.cpp(255,63): warning C4101: 'ray_dir': unreferenced local variable
+E:\ImageProcessing\ProjectFiles\ImageSynthesisRayCaster\VIZA654\visual_studio\Project01\main.cpp(335,60): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\ImageProcessing\ProjectFiles\ImageSynthesisRayCaster\VIZA654\visual_studio\Project01\main.cpp(335,56): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\ImageProcessing\ProjectFiles\ImageSynthesisRayCaster\VIZA654\visual_studio\Project01\main.cpp(446,22): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+E:\ImageProcessing\ProjectFiles\ImageSynthesisRayCaster\VIZA654\visual_studio\Project01\main.cpp(467,18): warning C4154: deletion of an array expression; conversion to pointer supplied
   Project01.vcxproj -> E:\ImageProcessing\ProjectFiles\ImageSynthesisRayCaster\VIZA654\visual_studio\x64\Debug\Project01.exe

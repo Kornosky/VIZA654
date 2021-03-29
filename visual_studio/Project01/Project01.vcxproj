@@ -127,23 +127,34 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\include\Transform.cpp" />
     <ClCompile Include="..\..\src\ImageData.cpp" />
-    <ClCompile Include="Light.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="PointLight.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\AreaLight.h" />
     <ClInclude Include="..\..\include\Camera.h" />
+    <ClInclude Include="..\..\include\ColorHelpers.h" />
+    <ClInclude Include="..\..\include\DirectionalLight.h" />
     <ClInclude Include="..\..\include\Plane.h" />
+    <ClInclude Include="..\..\include\PointLight.h" />
     <ClInclude Include="..\..\include\Sphere.h" />
     <ClInclude Include="..\..\include\Ray.h" />
+    <ClInclude Include="..\..\include\SpotLight.h" />
+    <ClInclude Include="..\..\include\stb_image.h" />
     <ClInclude Include="..\..\include\Transform.h" />
     <ClInclude Include="..\..\include\VisibleObject.h" />
     <ClInclude Include="..\..\src\ColorData.h" />
     <ClInclude Include="..\..\src\ImageData.h" />
     <ClInclude Include="..\..\src\MemoryControl.h" />
+    <ClInclude Include="ColorHelpers.h" />
     <ClInclude Include="Light.h" />
+    <ClInclude Include="main.h" />
     <ClInclude Include="PointLight.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\textures\Checker.png" />
+    <Image Include="..\..\textures\Planet.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

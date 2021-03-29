@@ -7,8 +7,8 @@
 
 class Plane : public VisibleObject {
 private:
-	
-	Transform transform; //Not used yet? I want to use it
+
+    Transform transform; //Not used yet? I want to use it
     glm::vec3 n_0; // Normal to the plane
     glm::vec3 n_1, n_2; // Two orthogonal vectors on the plane
     glm::vec3 p_i; // A given point on the plane
@@ -16,13 +16,16 @@ private:
 
     float sx, sy;
 public:
-	Plane();
+    Plane();
     Plane(glm::vec3 cornerLocation, float width, float height);
     Plane(glm::vec3 point, glm::vec3 normal);
-	~Plane();
+    ~Plane();
 
-	// Inherited via VisibleObject
-	virtual glm::vec3 getIntersectInfo(const Ray& incoming) const override;
+    // Inherited via VisibleObject
+    virtual glm::vec3 getIntersectInfo(const Ray& incoming) const override;
+    virtual glm::vec3 getNormalAtPoint(glm::vec3& point) const override;
+    virtual glm::vec3 TextureMap(glm::vec3& point) const override;
+    virtual glm::vec3 getColor(glm::vec3& point) const override;
 };
 
 Plane::Plane() {}
@@ -31,7 +34,7 @@ inline Plane::Plane(glm::vec3 cornerLocation, glm::vec3 normal)
 {
     n_0 = normal;
     n_0 = glm::normalize(n_0); 
-
+    p_i = cornerLocation;
     glm::vec3 v_temp; // Temporary variable which is not parallel to the normal
     if (n_0.z >= 1.0 || n_0.z <= -1.0) {
         v_temp = glm::vec3(0.0, n_0.z, 0.0);
@@ -81,6 +84,27 @@ glm::vec3 Plane::getIntersectInfo(const Ray& incoming) const
     intersection[2] = ifIntersect;
 
     return intersection;
+}
+
+inline glm::vec3 Plane::getNormalAtPoint(glm::vec3& point) const
+{
+    return n_0;
+}
+
+inline glm::vec3 Plane::TextureMap(glm::vec3& point) const
+{
+    return glm::vec3();
+}
+
+inline glm::vec3 Plane::getColor(glm::vec3& point) const
+{
+    if (m != NULL) {
+        float u = dot(n_1, point - p_i) / 20.0f;
+        float v = dot(n_2, point - p_i) / 20.0f;
+
+        return m->getBilinearColor(u, v);
+    }
+    return color;
 }
 
 #endif

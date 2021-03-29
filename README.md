@@ -6,3 +6,7 @@
 
 ## Resources used:
 -[Scratchapixel](https://www.scratchapixel.com/index.php): Wonderful free site that walks through all the basics + C++ optimizations
+
+## References used:
+- https://github.com/NullSense/Tracey/tree/master/src
+- https://github.com/h44rd/RayTracingCUDA
