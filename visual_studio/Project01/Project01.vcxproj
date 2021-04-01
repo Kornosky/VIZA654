@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\include\Light.cpp" />
     <ClCompile Include="..\..\include\Transform.cpp" />
     <ClCompile Include="..\..\src\ImageData.cpp" />
     <ClCompile Include="main.cpp" />

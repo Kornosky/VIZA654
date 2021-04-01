@@ -8,12 +8,13 @@ E:\ImageProcessing\ProjectFiles\ImageSynthesisRayCaster\VIZA654\include\ColorHel
           [
               T=float
           ]
-E:\ImageProcessing\ProjectFiles\ImageSynthesisRayCaster\VIZA654\visual_studio\Project01\main.cpp(255,35): warning C4101: 'normal': unreferenced local variable
-E:\ImageProcessing\ProjectFiles\ImageSynthesisRayCaster\VIZA654\visual_studio\Project01\main.cpp(255,43): warning C4101: 'refl_dir': unreferenced local variable
-E:\ImageProcessing\ProjectFiles\ImageSynthesisRayCaster\VIZA654\visual_studio\Project01\main.cpp(255,53): warning C4101: 'refr_dir': unreferenced local variable
-E:\ImageProcessing\ProjectFiles\ImageSynthesisRayCaster\VIZA654\visual_studio\Project01\main.cpp(255,63): warning C4101: 'ray_dir': unreferenced local variable
-E:\ImageProcessing\ProjectFiles\ImageSynthesisRayCaster\VIZA654\visual_studio\Project01\main.cpp(335,60): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\ImageProcessing\ProjectFiles\ImageSynthesisRayCaster\VIZA654\visual_studio\Project01\main.cpp(335,56): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-E:\ImageProcessing\ProjectFiles\ImageSynthesisRayCaster\VIZA654\visual_studio\Project01\main.cpp(446,22): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-E:\ImageProcessing\ProjectFiles\ImageSynthesisRayCaster\VIZA654\visual_studio\Project01\main.cpp(467,18): warning C4154: deletion of an array expression; conversion to pointer supplied
+E:\ImageProcessing\ProjectFiles\ImageSynthesisRayCaster\VIZA654\visual_studio\Project01\main.cpp(275,35): warning C4101: 'normal': unreferenced local variable
+E:\ImageProcessing\ProjectFiles\ImageSynthesisRayCaster\VIZA654\visual_studio\Project01\main.cpp(275,43): warning C4101: 'refl_dir': unreferenced local variable
+E:\ImageProcessing\ProjectFiles\ImageSynthesisRayCaster\VIZA654\visual_studio\Project01\main.cpp(275,53): warning C4101: 'refr_dir': unreferenced local variable
+E:\ImageProcessing\ProjectFiles\ImageSynthesisRayCaster\VIZA654\visual_studio\Project01\main.cpp(275,63): warning C4101: 'ray_dir': unreferenced local variable
+E:\ImageProcessing\ProjectFiles\ImageSynthesisRayCaster\VIZA654\visual_studio\Project01\main.cpp(359,60): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\ImageProcessing\ProjectFiles\ImageSynthesisRayCaster\VIZA654\visual_studio\Project01\main.cpp(359,56): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+E:\ImageProcessing\ProjectFiles\ImageSynthesisRayCaster\VIZA654\visual_studio\Project01\main.cpp(470,22): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+E:\ImageProcessing\ProjectFiles\ImageSynthesisRayCaster\VIZA654\visual_studio\Project01\main.cpp(491,18): warning C4154: deletion of an array expression; conversion to pointer supplied
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
   Project01.vcxproj -> E:\ImageProcessing\ProjectFiles\ImageSynthesisRayCaster\VIZA654\visual_studio\x64\Debug\Project01.exe

@@ -80,7 +80,7 @@ void InitParameters()
 	sphere->color = glm::vec3(255, 0, 0);
 	TextureMaterial* mat0 = new TextureMaterial();
 	mat0->setColorImage(img_w[0], img_h[0], img_chns[0], host_imgs[0]);
-	//sphere->setMaterial(*mat0);
+	sphere->setMaterial(*mat0);
 	
 	position = glm::vec3(0.0f, 0.0f, -4.0f);
 	radius = .1f;
@@ -94,7 +94,8 @@ void InitParameters()
 	Plane* plane = new Plane(point, normal);
 	objectsInScene.push_back((VisibleObject*)plane);
 	plane->color = glm::vec3(0, 255, 0);
-	//plane->setMaterial(*mat0);
+	plane->setMaterial(*mat0);
+
 	////Create sphere
 	//position = glm::vec3(0.0f, 2, -4.0f);
 	//radius =.7f;
@@ -117,6 +118,13 @@ void InitParameters()
 	PointLight* pointLight = new PointLight(position, color, intensity);
 	//lightsInScene.push_back((Light*)pointLight);	
 	
+
+	position = glm::vec3(-1.0f, 1.3f, -2.0f);
+	intensity = .3f;
+	//glm::vec3 color(255, 255, 255);
+	PointLight* pointLight1 = new PointLight(position, color, intensity);
+	//lightsInScene.push_back((Light*)pointLight1);	
+	
 	radius = .1f;
 	Sphere* sphere5 = new Sphere(position, radius);
 	//gizmosInScene.push_back((VisibleObject*)sphere5);
@@ -127,21 +135,33 @@ void InitParameters()
 	intensity = .3f;
 	//glm::vec3 color(255, 255, 255);
 	Transform* transform = new Transform(glm::vec3(1, 0, 0), glm::vec3(1, 1, 1), glm::vec3(0, 0, 0));
-	DirectionalLight* pointLight1 = new DirectionalLight(*transform, color, intensity);
-	//lightsInScene.push_back((Light*)pointLight1);
+	DirectionalLight* pointLight2 = new DirectionalLight(*transform, color, intensity);
+	//lightsInScene.push_back((Light*)pointLight2);
 
-	//Create light ---SPOT
+	//Create light -------------------------SPOT
 	intensity = .3f;
 	//glm::vec3 color(255, 255, 255);
 	transform = new Transform(glm::vec3(1.0f, 2.0f, -4.0f), glm::vec3(0.3f, -1, 0.02f), glm::vec3(0, 0, 0));
 	Spotlight* spotlight = new Spotlight(*transform, color, intensity);
 	spotlight->falloff_angle = 40.0f;
 	spotlight->beam_angle = 180.0f;
-	lightsInScene.push_back((Light*)spotlight);
+	//lightsInScene.push_back((Light*)spotlight);
 	radius = .1f;
 	Sphere* sphere6 = new Sphere(transform->position, radius);
+	//gizmosInScene.push_back((VisibleObject*)sphere6);
+	sphere6->color = glm::vec3(255, 255, 25);
+	
+	//Create light -------------------------Area
+	intensity = .3f;
+	//glm::vec3 color(255, 255, 255);
+	transform = new Transform(glm::vec3(1.0f, 2.0f, -4.0f), glm::vec3(0.3f, -1, 0.02f), glm::vec3(0, 0, 0));
+	AreaLight* areaLight = new AreaLight(transform->position, transform->rotation, glm::vec3(0,1,0), 100, 100);
+	lightsInScene.push_back((Light*)areaLight);
+	radius = .1f;
+	Sphere* sphere7 = new Sphere(transform->position, radius);
 	gizmosInScene.push_back((VisibleObject*)sphere6);
-	sphere5->color = glm::vec3(255, 255, 25);
+	sphere7->color = glm::vec3(255, 255, 25);
+	gizmosInScene.push_back(sphere7);
 }
 inline bool ifRayIntersected(const glm::vec3& intersectInfo) { return (intersectInfo[2] > 0.0f); }
 
@@ -274,7 +294,10 @@ glm::vec3 RayTrace(Ray incoming_ray, int steps) { //IDK what steps are for
 
 			//Compute lights by looping through all lights
 			for (auto &light :  lightsInScene) { 
-
+				if (light->hasSamples)
+				{
+					light->setRandomSamplePosition();
+				}
 				//Init variables per light
 				glm::vec3 normal = closest_object->getNormalAtPoint(point_of_intersection);
 				glm::vec3 shadowDirection = light->GetShadowVector(point_of_intersection);
@@ -298,7 +321,8 @@ glm::vec3 RayTrace(Ray incoming_ray, int steps) { //IDK what steps are for
 
 			//----------------- COMPUTE FINAL PIXEL COLOR -----------------
 			specular_intensity = (1.0f - shadow_intensity) * specular_intensity; //TODO fix the specular not being blurred : Also when to use smoothstep?
-			glm::vec3 shadow_color = ColorHelpers::GetComplementaryColor(objectColor) * .5f;
+			//glm::vec3 shadow_color = ColorHelpers::GetComplementaryColor(objectColor) * .5f;
+			glm::vec3 shadow_color = glm::vec3(0,0,0);
 			//shadow_intensity = glm::smoothstep(0.0f, 1.0f, shadow_intensity);
 			final_color = (shadow_intensity)*shadow_color + objectColor * (diffuse_intensity)+shadow_color * (1 - diffuse_intensity);
 			final_color = glm::mix(final_color, specular_light_color, specular_intensity);
