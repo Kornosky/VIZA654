@@ -7,10 +7,10 @@ class TextureMaterial : public Material {
 private:
     unsigned char* color_image;
     int c_i_height, c_i_width, c_i_channels;
+   
 public:
     TextureMaterial();
     ~TextureMaterial();
-
     void setColorImage(int width, int height, int channels, unsigned char* image);
 
     glm::vec3 getColorAtIndex(int x, int y);
@@ -30,9 +30,9 @@ void TextureMaterial::setColorImage(int width, int height, int channels, unsigne
 }
 
 glm::vec3 TextureMaterial::getColorAtIndex(int x, int y) {
+
     if (x < c_i_width - 1 && y < c_i_height - 1) {
         int index = c_i_channels * (c_i_width * y + x);
-
 
         return glm::vec3(float(color_image[index + 0]) / 255.99f, float(color_image[index + 1]) / 255.99f, float(color_image[index + 2]) / 255.99f);
     }

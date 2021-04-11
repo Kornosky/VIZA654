@@ -139,11 +139,14 @@
     <ClInclude Include="..\..\include\DirectionalLight.h" />
     <ClInclude Include="..\..\include\Plane.h" />
     <ClInclude Include="..\..\include\PointLight.h" />
+    <ClInclude Include="..\..\include\SkySphere.h" />
     <ClInclude Include="..\..\include\Sphere.h" />
     <ClInclude Include="..\..\include\Ray.h" />
     <ClInclude Include="..\..\include\SpotLight.h" />
     <ClInclude Include="..\..\include\stb_image.h" />
+    <ClInclude Include="..\..\include\tiny_obj_loader.h" />
     <ClInclude Include="..\..\include\Transform.h" />
+    <ClInclude Include="..\..\include\TriangularMesh.h" />
     <ClInclude Include="..\..\include\VisibleObject.h" />
     <ClInclude Include="..\..\src\ColorData.h" />
     <ClInclude Include="..\..\src\ImageData.h" />
@@ -152,6 +155,7 @@
     <ClInclude Include="Light.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="PointLight.h" />
+    <ClInclude Include="Triangle.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\textures\Checker.png" />

@@ -30,7 +30,7 @@ private:
     const float SPEED = 2.5f;
     const float SENSITIVITY = 0.1f;
     const float ZOOM = 45.0f;
-    glm::vec3 p_e; // Position of the camera
+   
     glm::vec3 p_c; // Position of the center of the screen
     glm::vec3 p_00; // Bottom Left corner of the screen 
     glm::vec3 v_view, v_up; // View and Up vectors that defines the orientation of the camera
@@ -41,6 +41,7 @@ private:
     float d; // Distance of the screen from the camera
 
 public:
+    glm::vec3 p_e; // Position of the camera
     // camera Attributes
     glm::vec3 Position;
     glm::vec3 Front = glm::vec3(0, 0, 1);
@@ -73,18 +74,20 @@ public:
     {
         float velocity = MovementSpeed * deltaTime;
         if (direction == FORWARD)
-            origin += Front * velocity;
+            p_e += Front * velocity;
         if (direction == BACKWARD)
-            origin -= Front * velocity;
+            p_e -= Front * velocity;
         if (direction == LEFT)
-            origin -= Right * velocity;
+            p_e -= Right * velocity;
         if (direction == RIGHT)
-            origin += Right * velocity;
+            p_e += Right * velocity;
         if (direction == UP)
-            origin += Up * velocity;
+            p_e += Up * velocity;
         if (direction == DOWN)
-            origin -= Up * velocity;
+            p_e -= Up * velocity;
 
+        p_c = p_e + n_2 * d; // Going to the center of the screen from the camera position in the direction of the view vector
+        p_00 = p_c - (1 / 2.0f) * n_0 - (1 / 2.0f) * n_1; // The 0,0 for the screen : Bottom Left 
         cout << "Camera Position: " << origin.x << ", " << origin.y << ", " << origin.z;
     }
 
@@ -143,14 +146,14 @@ private:
 };
 
 
-//Camera::Camera(const glm::vec3& position, const glm::vec3& direction, const glm::vec3& up, float sx, float sy, float screen_distance) : p_e(position), v_view(direction), v_up(up), s_x(sx), s_y(sy), d(screen_distance) {
-//    n_0 = normalize(cross(-v_view, v_up));
-//    n_1 = normalize(cross(n_0, v_view));
-//    n_2 = normalize(v_view);
-//
-//    p_c = p_e + n_2 * d; // Going to the center of the screen from the camera position in the direction of the view vector
-//    p_00 = p_c - (1 / 2.0f) * n_0 - (1 / 2.0f) * n_1; // The 0,0 for the screen : Bottom Left 
-//}
+Camera::Camera(const glm::vec3& position, const glm::vec3& direction, const glm::vec3& up, float sx, float sy, float screen_distance) : p_e(position), v_view(direction), v_up(up), s_x(sx), s_y(sy), d(screen_distance) {
+    n_0 = normalize(cross(v_view, v_up));
+    n_1 = normalize(cross(n_0, v_view));
+    n_2 = normalize(v_view);
+
+    p_c = p_e + n_2 * d; // Going to the center of the screen from the camera position in the direction of the view vector
+    p_00 = p_c - (1 / 2.0f) * n_0 - (1 / 2.0f) * n_1; // The 0,0 for the screen : Bottom Left 
+}
 
 
 //
@@ -161,18 +164,19 @@ private:
 //}
 
 //
-Camera::Camera(const glm::vec3& position, const glm::vec3& direction, const glm::vec3& up, float sx, float sy, float screen_distance) : p_e(position), v_view(direction), v_up(up), s_x(sx), s_y(sy), d(screen_distance) {
-    lower_left_corner = glm::vec3(-2.0, -1.0, -1.0);
-    
-    horizontal = glm::vec3(4.0, 0.0, 0.0); // horizontal range
-    vertical = glm::vec3(0.0, 2.0, 0.0);   // vertical range
-    origin = position;
-}
+//Camera::Camera(const glm::vec3& position, const glm::vec3& direction, const glm::vec3& up, float sx, float sy, float screen_distance) : p_e(position), v_view(direction), v_up(up), s_x(sx), s_y(sy), d(screen_distance) {
+//    //lower_left_corner = glm::vec3(-2.0, -1.0, -1.0);
+//    //
+//    //horizontal = glm::vec3(4.0, 0.0, 0.0); // horizontal range
+//    //vertical = glm::vec3(0.0, 2.0, 0.0);   // vertical range
+//    //origin = position;
+//}
 
 
 
 Ray Camera::GetRay(float u, float v, float width, float height) const {
-    return Ray(origin, origin + lower_left_corner + u / width * horizontal + v / height * vertical);
+    return Ray(p_e, (p_00 + (u * n_0 / s_x) + (v * n_1 / s_y)) - p_e);
+   // return Ray(p_c, p_00  + u / width * n_0 + v / height * n_1);
 }
 
 

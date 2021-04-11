@@ -98,11 +98,11 @@ inline glm::vec3 Plane::TextureMap(glm::vec3& point) const
 
 inline glm::vec3 Plane::getColor(glm::vec3& point) const
 {
-    if (m != NULL) {
+    if (mat != NULL) {
         float u = dot(n_1, point - p_i) / 20.0f;
         float v = dot(n_2, point - p_i) / 20.0f;
 
-        return m->getBilinearColor(u, v);
+        return mat->getBilinearColor(u, v);
     }
     return color;
 }

@@ -7,6 +7,9 @@ private:
     float m_refractive_index; // Refractive index of the material
     glm::vec3 m_color; // color of the material
 public:
+    bool isUnlit;
+    bool isReflective;
+    bool isRefrative;
     Material();
     ~Material();
     Material(glm::vec3& color, float k_diffuse, float k_specular, float refractive_index);

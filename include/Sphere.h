@@ -1,5 +1,5 @@
-#ifndef PRIMATIVES_H
-#define PRIMATIVES_H
+#ifndef SPHERE_H
+#define SPHERE_H
 
 #include "glm/glm.hpp"
 #include <Transform.h>
@@ -118,13 +118,13 @@ inline glm::vec3 Sphere::TextureMap(glm::vec3& point) const
 
 inline glm::vec3 Sphere::getColor(glm::vec3& point) const
 {
-    if (m != NULL) {
+    if (mat != NULL) {
         float theta = atan2(-1 * (point.z - p_c.z), point.x - p_c.x);      
         float phi = acos(-1 * (point.y - p_c.y) / r);
         float u = (theta + glm::pi<float>()) / (2.0 * glm::pi<float>());
         float v = phi / glm::pi<float>();
 
-        return m->getBilinearColor(u, v);
+        return mat->getBilinearColor(u, v);
     }
     return color;
 }
